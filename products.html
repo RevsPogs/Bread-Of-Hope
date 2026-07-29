@@ -13,6 +13,35 @@
     <script src="js/app.js" defer></script>
     <script src="js/products.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Quick fix for Product View Modal Styling -->
+    <style>
+        .product-view-modal {
+            position: fixed; z-index: 5000; inset: 0; display: grid; place-items: center;
+            background: rgba(45, 32, 27, 0.62); backdrop-filter: blur(8px);
+        }
+        .product-view-dialog {
+            position: relative; width: min(100%, 720px); max-height: 90dvh; overflow-y: auto;
+            padding: 32px; border-radius: 27px; background: var(--cream); box-shadow: var(--shadow-lg);
+        }
+        .product-view-close {
+            position: absolute; top: 15px; right: 15px; width: 38px; height: 38px;
+            border-radius: 12px; background: rgba(91, 67, 54, 0.07); color: var(--coffee-dark);
+            font-size: 1.2rem; cursor: pointer; display: grid; place-items: center;
+        }
+        .product-detail-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .product-detail-image { aspect-ratio: 1; border-radius: 20px; overflow: hidden; background: var(--cream-soft); }
+        .product-detail-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-detail-info { display: flex; flex-direction: column; gap: 12px; }
+        .product-detail-badge { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--vanilla); color: var(--coffee-dark); font-size: 0.7rem; font-weight: 800; }
+        .product-detail-info h2 { font-size: 2rem; margin: 0; }
+        .product-detail-price { color: var(--taupe); font-size: 1.5rem; font-weight: 800; }
+        .product-detail-desc { color: var(--text); }
+        @media (max-width: 680px) {
+            .product-detail-view { grid-template-columns: 1fr; }
+            .product-view-dialog { padding: 20px; }
+        }
+    </style>
 </head>
 <body>
     <a class="skip-link" href="#mainContent">Skip to content</a>
@@ -27,7 +56,8 @@
                     <li><a href="index.html#ourStory">Our Story</a></li>
                     <li><a href="index.html#howItWorks">How It Works</a></li>
                     <li><a href="checkout.html">Checkout</a></li>
-                    <li><a class="admin-nav-entry" href="admin.html">Admin</a></li>
+                    <!-- FIXED: Replaced Admin with Contact -->
+                    <li><a href="index.html#fbCon">Contact</a></li>
                 </ul>
                 <a class="nav-cta" href="cart.html">View Cart <span class="cart-count" data-cart-count>0</span></a>
             </div>
@@ -49,6 +79,16 @@
             </div>
         </section>
     </main>
+
+    <!-- ADDED: Product Detail Modal -->
+    <div id="productViewModal" class="product-view-modal" hidden>
+        <div class="product-view-overlay" data-close-view></div>
+        <div class="product-view-dialog">
+            <button class="product-view-close" data-close-view>×</button>
+            <div id="productViewContent"></div>
+        </div>
+    </div>
+
     <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"><span class="toast-icon">✓</span><span id="toastMessage">Added to cart</span></div>
     <footer class="site-footer compact-footer"><div class="container footer-bottom"><p>© <span data-current-year>2026</span> Bread of Hope. Freshly baked favorites.</p><a href="cart.html">View your cart →</a></div></footer>
 </body>

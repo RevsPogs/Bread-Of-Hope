@@ -7,12 +7,10 @@
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // --- Realtime Setup ---
-    // Subscribe to product updates so stock numbers stay live across all devices
     supabase.channel('products-channel')
         .on('postgres_changes', 
             { event: 'UPDATE', schema: 'public', table: 'products' }, 
             (payload) => {
-                // Dispatch an event to tell the pages (Home, Products) to refresh their UI
                 window.dispatchEvent(new CustomEvent('breadOfHopeProductsUpdated', { detail: [payload.new] }));
             }
         )
@@ -131,7 +129,6 @@
     };
 
     const addOrder = async (order) => {
-        // Call the Supabase SQL RPC function
         const { data, error } = await supabase
             .rpc('place_order_with_stock', {
                 p_reference: order.reference,
@@ -146,7 +143,6 @@
         if (error) throw new Error(error.message);
         if (!data.success) throw new Error(data.message);
         
-        // Fetch the newly created order to return it
         const { data: newOrder } = await supabase
             .from('orders')
             .select('*, order_items(*)')
@@ -199,7 +195,6 @@
     function initializeWelcomeScreen() {
         const screen = document.getElementById("welcomeScreen");
         const button = document.getElementById("enterWebsite");
-        // If the user has already clicked "Enter" in this session, instantly hide the screen
         if (sessionStorage.getItem("breadOfHopeEntered") === "true") {
             document.body.classList.remove("welcome-open");
             if (screen) screen.hidden = true;
@@ -321,15 +316,25 @@
         initializeImageFallbacks(grid);
     };
 
-    const addHomeProductToCart = (productId) => {
-        (async () => {
+    // ============================================================
+    // FIXED: Homepage Add to Cart (Forces a visual disabled state)
+    // ============================================================
+    const addHomeProductToCart = async (productId, button) => {
+        if (button) {
+            button.disabled = true;
+            button.setAttribute('aria-disabled', 'true');
+        }
+
+        try {
             const products = await readProducts();
             const product = products.find((item) => item.id === productId && item.available !== false);
             if (!product) return;
+
             const cart = readCart();
             const existing = cart.find((item) => item.id === product.id);
             if (existing) existing.quantity += 1;
             else cart.push({ id: product.id, name: product.name, price: product.price, image: product.image_url, quantity: 1 });
+            
             saveCart(cart);
             const toast = document.getElementById("toast");
             const toastMessage = document.getElementById("toastMessage");
@@ -338,8 +343,17 @@
                 toast.classList.add("is-visible");
                 setTimeout(() => toast.classList.remove("is-visible"), 2400);
             }
-        })();
+        } finally {
+            // Ensure the button stays disabled visually for a moment
+            setTimeout(() => {
+                if (button) {
+                    button.disabled = false;
+                    button.removeAttribute('aria-disabled');
+                }
+            }, 150);
+        }
     };
+    // ============================================================
 
     document.addEventListener("DOMContentLoaded", () => {
         initializeWelcomeScreen();
@@ -350,9 +364,10 @@
         initializeYear();
         updateCartCount();
         renderHomeProducts();
+        
         document.getElementById("homeProductGrid")?.addEventListener("click", (event) => {
             const button = event.target.closest(".home-add-cart");
-            if (button) addHomeProductToCart(button.dataset.productId);
+            if (button) addHomeProductToCart(button.dataset.productId, button);
         });
     });
 
