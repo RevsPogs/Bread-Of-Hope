@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bread of Hope admin dashboard for managing orders and products.">
+    <meta name="theme-color" content="#8C7B6B">
+    <title>Admin Dashboard | Bread of Hope</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+    <section id="adminLoginScreen" class="admin-login-screen" aria-labelledby="adminLoginTitle">
+        <div class="admin-login-decoration admin-login-decoration-one" aria-hidden="true"></div>
+        <div class="admin-login-decoration admin-login-decoration-two" aria-hidden="true"></div>
+        <div class="admin-login-card">
+            <a class="admin-login-brand logo" href="index.html" aria-label="Return to Bread of Hope home">
+                <span class="logo-mark"><img src="images/logo.jpg" alt="Bread of Hope logo"></span>
+                <span class="brand-copy"><strong>Bread of Hope</strong><small>Management Portal</small></span>
+            </a>
+            <div class="admin-login-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></div>
+            <span class="eyebrow">Authorized access</span>
+            <h1 id="adminLoginTitle">Admin Login</h1>
+            <p>Sign in to review customer orders, update order status, and manage the product catalog.</p>
+
+            <form id="adminLoginForm" class="admin-login-form">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <div class="admin-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg><input type="email" id="adminEmail" autocomplete="email" required placeholder="Enter your admin email"></div>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <div class="admin-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg><input type="password" id="adminPassword" autocomplete="current-password" required placeholder="Enter your password"><button type="button" id="passwordToggle" class="password-toggle">Show</button></div>
+                </div>
+                <p id="adminLoginError" class="admin-login-error" role="alert"></p>
+                <button type="submit" class="btn btn-primary btn-block admin-login-button">Open dashboard <span>→</span></button>
+            </form>
+            <div class="admin-security-note"><span>✓</span><p><strong>Restricted management area</strong>Customer-facing pages remain separate from dashboard controls.</p></div>
+            <a class="admin-back-link" href="index.html">← Return to the website</a>
+        </div>
+    </section>
+
+    <div id="adminDashboard" class="admin-app" hidden>
+        <aside class="admin-sidebar" aria-label="Admin navigation">
+            <div class="admin-sidebar-brand">
+                <a class="logo" href="index.html"><span class="logo-mark"><img src="images/logo.jpg" alt="Bread of Hope logo"></span><span class="brand-copy"><strong>Bread of Hope</strong><small>Admin Panel</small></span></a>
+                <button class="admin-sidebar-close" id="adminSidebarClose" type="button" aria-label="Close admin menu">×</button>
+            </div>
+            <nav class="admin-nav">
+                <button type="button" class="admin-nav-link is-active" data-admin-view="overview"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg><span>Overview</span></button>
+                <button type="button" class="admin-nav-link" data-admin-view="orders"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M7 7V4h10v3M8 12h8"></path></svg><span>Orders</span><small id="sidebarOrderCount">0</small></button>
+                <button type="button" class="admin-nav-link" data-admin-view="products"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8c0-3 2-5 7-5s7 2 7 5v11H5z"></path><path d="M8 12h8"></path></svg><span>Products</span><small id="sidebarProductCount">0</small></button>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8"></path><path d="M5 10v11h14V10"></path></svg>View website</a>
+                <button type="button" id="adminLogoutButton"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3"></path><path d="M14 3h7v18h-7"></path></svg>Log out</button>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <div class="admin-topbar-left"><button type="button" id="adminMenuButton" class="admin-menu-button" aria-label="Open admin menu"><span></span><span></span><span></span></button><div><p>Management portal</p><h1 id="adminPageTitle">Dashboard Overview</h1></div></div>
+                <div class="admin-topbar-right"><span class="admin-live-badge"><span></span>Live orders</span><div class="admin-profile"><span class="admin-avatar">A</span><div><strong>Administrator</strong><small id="adminTodayLabel">Bread of Hope</small></div></div></div>
+            </header>
+
+            <div class="admin-content">
+                <section class="admin-view is-active" data-view-panel="overview">
+                    <div class="admin-welcome-card"><div><span class="eyebrow eyebrow-light">Daily workspace</span><h2>Keep every order moving.</h2><p>Review recent orders, track pending requests, and keep the product catalog updated from one place.</p></div><button type="button" class="btn btn-light" data-admin-view="orders">Review orders <span>→</span></button></div>
+                    <div class="admin-metrics-grid">
+                        <article class="admin-metric-card"><span class="admin-metric-icon">01</span><div><p>Total orders</p><strong id="metricTotalOrders">0</strong><small>All submitted orders</small></div></article>
+                        <article class="admin-metric-card"><span class="admin-metric-icon">02</span><div><p>Pending orders</p><strong id="metricPendingOrders">0</strong><small>Needs attention</small></div></article>
+                        <article class="admin-metric-card"><span class="admin-metric-icon">03</span><div><p>Total revenue</p><strong id="metricRevenue">₱0.00</strong><small>Excludes cancelled orders</small></div></article>
+                        <article class="admin-metric-card"><span class="admin-metric-icon">04</span><div><p>Active products</p><strong id="metricProducts">0</strong><small>Visible in the catalog</small></div></article>
+                    </div>
+                    <div class="admin-overview-grid">
+                        <section class="admin-panel"><div class="admin-panel-heading"><div><span class="admin-panel-kicker">Latest activity</span><h2>Recent orders</h2></div><button class="admin-text-button" type="button" data-admin-view="orders">View all →</button></div><div id="recentOrdersList" class="admin-recent-orders"></div></section>
+                        <section class="admin-panel admin-status-panel"><div class="admin-panel-heading"><div><span class="admin-panel-kicker">Order health</span><h2>Status summary</h2></div></div><div id="statusBreakdown" class="admin-status-breakdown"></div></section>
+                    </div>
+                </section>
+
+                <section class="admin-view" data-view-panel="orders" hidden>
+                    <div class="admin-section-heading"><div><span class="eyebrow">Order management</span><h2>Customer orders</h2><p>Search orders, review customer details, and update preparation status.</p></div></div>
+                    <div class="admin-toolbar"><div class="admin-search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" id="adminOrderSearch" placeholder="Search reference, customer, or section..."></div><div class="admin-filter-field"><select id="adminStatusFilter" aria-label="Filter orders by status"><option value="all">All statuses</option><option value="Pending">Pending</option><option value="Preparing">Preparing</option><option value="Ready">Ready</option><option value="Completed">Completed</option><option value="Cancelled">Cancelled</option></select></div><span id="adminOrderResultCount" class="admin-result-count">0 orders</span></div>
+                    <div class="admin-table-card"><div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Reference</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody id="adminOrdersTableBody"></tbody></table></div><div id="adminOrdersEmpty" class="admin-table-empty" hidden><span>○</span><h3>No orders found</h3><p>Try a different search term or status filter.</p></div></div>
+                </section>
+
+                <section class="admin-view" data-view-panel="products" hidden>
+                    <div class="admin-section-heading"><div><span class="eyebrow">Catalog management</span><h2>Products</h2><p>Add, edit, hide, or remove items shown in the customer catalog.</p></div><div class="admin-heading-actions"><button type="button" id="addProductButton" class="btn btn-primary">Add new product <span>+</span></button></div></div>
+                    <div class="admin-product-summary"><article><span>Total products</span><strong id="productSummaryTotal">0</strong></article><article><span>Active</span><strong id="productSummaryActive">0</strong></article><article><span>Hidden</span><strong id="productSummaryHidden">0</strong></article></div>
+                    <div id="adminProductsGrid" class="admin-products-grid"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="orderDetailsModal" class="admin-modal-backdrop" hidden><div class="admin-modal"><button type="button" class="admin-modal-close" data-close-modal="orderDetailsModal" aria-label="Close order details">×</button><div id="orderModalContent"></div></div></div>
+
+    <div id="productEditorModal" class="admin-modal-backdrop" hidden>
+        <div class="admin-modal admin-product-modal">
+            <button type="button" class="admin-modal-close" data-close-modal="productEditorModal" aria-label="Close product editor">×</button>
+            <span class="eyebrow">Catalog editor</span><h2 id="productModalTitle">Add Product</h2>
+            <form id="productEditorForm" class="admin-product-form">
+                <input type="hidden" id="productEditId">
+                <div class="form-grid">
+                    <div class="form-group form-group-full"><label for="productEditName">Product name</label><input type="text" id="productEditName" required placeholder="Example: Cheese Bread"></div>
+                    <div class="form-group"><label for="productEditPrice">Price (₱)</label><input type="number" min="0" step="0.01" id="productEditPrice" required placeholder="0.00"></div>
+                    <div class="form-group"><label for="productEditStock">Stock Quantity</label><input type="number" min="0" id="productEditStock" required placeholder="0"></div>
+                    <div class="form-group"><label for="productEditBadge">Badge or tag</label><input type="text" id="productEditBadge" placeholder="Freshly baked"></div>
+                    <div class="form-group form-group-full"><label for="productEditImage">Product Image</label><input type="file" id="productEditImage" accept="image/*" required></div>
+                    <div class="form-group form-group-full"><label for="productEditDescription">Description</label><textarea id="productEditDescription" required placeholder="Write a clear product description."></textarea></div>
+                </div>
+                <label class="admin-switch-row"><input type="checkbox" id="productEditAvailable" checked><span class="admin-switch"></span><span><strong>Visible in customer catalog</strong><small>Turn this off to hide the product without deleting it.</small></span></label>
+                <p id="productEditorError" class="admin-form-error" role="alert"></p>
+                <div class="admin-modal-actions"><button type="button" class="btn btn-secondary" data-close-modal="productEditorModal">Cancel</button><button type="submit" class="btn btn-primary">Save product</button></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminToast" class="toast admin-toast" role="status" aria-live="polite"><span class="toast-icon">✓</span><span id="adminToastMessage">Dashboard updated</span></div>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bread of Hope offers freshly baked treats with a smooth and modern online ordering experience.">
+    <meta name="theme-color" content="#8C7B6B">
+    <title>Bread of Hope | Freshly Baked with Purpose</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/app.js" defer></script>
+</head>
+<body class="welcome-open">
+    <div class="welcome-screen" id="welcomeScreen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+        <div class="welcome-glow welcome-glow-one" aria-hidden="true"></div>
+        <div class="welcome-glow welcome-glow-two" aria-hidden="true"></div>
+        <div class="welcome-grain" aria-hidden="true"></div>
+        <div class="welcome-content">
+            <span class="welcome-kicker">Freshly baked favorites</span>
+            <div class="welcome-mark" aria-hidden="true"><img src="images/logo.jpg" alt=""></div>
+            <h1 id="welcomeTitle" class="welcome-title" aria-label="Bread of Hope">
+                <span class="welcome-word" aria-hidden="true"><span class="welcome-letter" style="--letter-index: 0">B</span><span class="welcome-letter" style="--letter-index: 1">r</span><span class="welcome-letter" style="--letter-index: 2">e</span><span class="welcome-letter" style="--letter-index: 3">a</span><span class="welcome-letter" style="--letter-index: 4">d</span></span>
+                <span class="welcome-word" aria-hidden="true"><span class="welcome-letter" style="--letter-index: 5">o</span><span class="welcome-letter" style="--letter-index: 6">f</span></span>
+                <span class="welcome-word" aria-hidden="true"><span class="welcome-letter" style="--letter-index: 7">H</span><span class="welcome-letter" style="--letter-index: 8">o</span><span class="welcome-letter" style="--letter-index: 9">p</span><span class="welcome-letter" style="--letter-index: 10">e</span></span>
+            </h1>
+            <p>Warm, delicious treats and a cozy bakery experience made for every sweet craving.</p>
+            <button class="welcome-enter" id="enterWebsite" type="button">
+                <span>Enter the Website</span>
+                <span aria-hidden="true">→</span>
+            </button>
+            <small>Press Enter to continue</small>
+        </div>
+    </div>
+    <a class="skip-link" href="#mainContent">Skip to content</a>
+    <header class="site-header" id="siteHeader">
+        <nav class="navbar container" aria-label="Main navigation">
+            <a class="logo" href="#home" aria-label="Bread of Hope home">
+                <span class="logo-mark"><img src="images/logo.jpg" alt="Bread of Hope logo"></span>
+                <span class="brand-copy"><strong>Bread of Hope</strong><small>Bake Shop</small></span>
+            </a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primaryNavigation" aria-label="Open navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-panel" id="primaryNavigation">
+                <ul class="nav-links">
+                    <li><a href="#home" class="active" aria-current="page">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#ourStory">Our Story</a></li>
+                    <li><a href="#howItWorks">How It Works</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a href="#fbCon">Contact</a></li>
+                </ul>
+                <a class="nav-cta" href="cart.html">View Cart <span class="cart-count" data-cart-count>0</span></a>
+            </div>
+        </nav>
+    </header>
+    <main id="mainContent">
+        <section class="hero section-shell" id="home">
+            <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+            <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+            <div class="container hero-grid">
+                <div class="hero-content reveal">
+                    <span class="eyebrow"><span class="eyebrow-dot"></span> Fresh from our bakery</span>
+                    <h1>Freshly baked treats, made with <span>hope and heart.</span></h1>
+                    <p>Bread of Hope serves soft, sweet, and satisfying baked favorites with a clean online ordering experience that is easy to use.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#products">Explore our products <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                        <a class="btn btn-secondary" href="#ourStory">Discover our story</a>
+                    </div>
+                    <div class="hero-proof" aria-label="Bread of Hope highlights">
+                        <div><strong>Quality</strong><span>Favorite treats</span></div>
+                        <div><strong>Fresh</strong><span>Small batches</span></div>
+                        <div><strong>Easy</strong><span>Online ordering</span></div>
+                    </div>
+                </div>
+                <div class="hero-visual reveal" aria-label="Featured Bread of Hope products">
+                    <div class="hero-image-main image-frame"><img src="images/ensaymada.jpg" alt="Fresh cheesy ensaymada"></div>
+                    <div class="hero-image-small hero-image-top image-frame"><img src="images/brownies.jpg" alt="Fudgy chocolate brownies"></div>
+                    <div class="hero-image-small hero-image-bottom image-frame"><img src="images/cookies.jpg" alt="Freshly baked cookies"></div>
+                    <div class="floating-card floating-card-rating"><span class="floating-icon">★</span><span><strong>Customer favorites</strong><small>Made with care</small></span></div>
+                    <div class="floating-card floating-card-batch"><span class="floating-icon">♨</span><span><strong>Fresh batches</strong><small>Prepared with purpose</small></span></div>
+                </div>
+            </div>
+        </section>
+        <section class="feature-strip" aria-label="Why choose Bread of Hope">
+            <div class="container feature-strip-grid">
+                <article><span class="strip-icon">01</span><div><strong>Freshly prepared</strong><p>Produced in carefully planned batches.</p></div></article>
+                <article><span class="strip-icon">02</span><div><strong>Purpose-driven</strong><p>Every order supports student learning.</p></div></article>
+                <article><span class="strip-icon">03</span><div><strong>Easy to order</strong><p>Choose, review, and check out online.</p></div></article>
+            </div>
+        </section>
+        <section class="section featured-section" id="products">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <div><span class="eyebrow">Customer favorites</span><h2>Made to brighten your day</h2></div>
+                    <a class="text-link" href="products.html">View the full menu <span>→</span></a>
+                </div>
+                <div id="homeProductGrid" class="product-grid home-product-grid" aria-live="polite"></div>
+            </div>
+        </section>
+        <section class="section story-section" id="ourStory">
+            <div class="container story-grid">
+                <div class="story-visual reveal">
+                    <div class="story-pattern" aria-hidden="true"></div>
+                    <div class="story-image image-frame"><img src="images/ensaymada.jpg" alt="Bread of Hope baked product"></div>
+                    <div class="story-note"><strong>Freshly baked</strong><span>made with care</span></div>
+                </div>
+                <div class="story-copy reveal">
+                    <span class="eyebrow">Our story</span>
+                    <h2>More than a bakery project</h2>
+                    <p>Bread of Hope is a bakery website made to showcase delicious products, smooth ordering, and a warm brand experience from start to finish.</p>
+                    <ul class="check-list">
+                        <li><span>✓</span>Practical baking and production skills</li>
+                        <li><span>✓</span>Digital ordering and web development</li>
+                        <li><span>✓</span>Teamwork, creativity, and entrepreneurship</li>
+                    </ul>
+                    <a class="btn btn-secondary" href="products.html">See what we created</a>
+                </div>
+            </div>
+        </section>
+        <section class="section process-section" id="howItWorks">
+            <div class="container">
+                <div class="center-heading reveal"><span class="eyebrow">Simple ordering</span><h2>From craving to checkout in three steps</h2></div>
+                <div class="process-grid">
+                    <article class="process-card reveal"><span>01</span><h3>Choose your favorites</h3><p>Browse the available treats and select the products you want.</p></article>
+                    <article class="process-card reveal"><span>02</span><h3>Review your cart</h3><p>Adjust quantities and check your complete order before checkout.</p></article>
+                    <article class="process-card reveal"><span>03</span><h3>Submit your order</h3><p>Enter your details, place the order, and save your reference code.</p></article>
+                </div>
+            </div>
+        </section>
+        <section class="section impact-section" aria-labelledby="impactTitle">
+            <div class="container">
+                <div class="impact-card reveal">
+                    <div class="impact-heading">
+                        <span class="eyebrow">Project value</span>
+                        <h2 id="impactTitle">Designed for customers and built for learning</h2>
+                        <p>Clear navigation, responsive pages, accessible controls, consistent branding, and a complete order workflow make the project useful beyond its appearance.</p>
+                    </div>
+                    <div class="impact-grid">
+                        <article><strong>01</strong><h3>Clear purpose</h3><p>The brand story and student collaboration are easy to understand.</p></article>
+                        <article><strong>02</strong><h3>Customer-friendly</h3><p>Products, cart, checkout, and order details follow a simple flow.</p></article>
+                        <article><strong>03</strong><h3>Responsive design</h3><p>The layout adapts to desktop, tablet, and mobile screens.</p></article>
+                        <article><strong>04</strong><h3>Working dashboard</h3><p>Authorized staff can review orders and manage the product catalog.</p></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================== -->
+        <!-- UPDATED CONTACT SECTION WITH SELLING SCHEDULE        -->
+        <!-- =================================================== -->
+        <section class="section contact-section" id="contact">
+            <div class="container">
+                <div class="contact-card reveal" style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: space-between;">
+                    
+                    <!-- Left: Contact Person -->
+                    <div style="flex: 1; min-width: 220px;" id="fbCon">
+                        <span class="eyebrow">Contact & Schedule</span>
+                        <h2 style="margin: 5px 0 15px; font-size: clamp(1.8rem, 3vw, 2.4rem);">Talk to Angel Joyce</h2>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px;">
+                            <!-- Facebook SVG Icon -->
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style="color: #1877F2; flex-shrink: 0;">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <div>
+                                <strong style="font-size: 1.1rem; color: var(--coffee-dark);">Angel Joyce Mallari</strong>
+                                <br><small style="color: var(--muted); font-weight: 600;">Representative</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle: Selling Times -->
+                    <div style="flex: 1.5; min-width: 280px; display: grid; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.6); padding: 12px 18px; border-radius: 14px; border: 1px solid var(--border);">
+                            <span style="background: var(--rose); color: var(--coffee-dark); padding: 3px 12px; border-radius: 999px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Junior</span>
+                            <span style="font-weight: 700; color: var(--coffee-dark);">1:30 PM – 2:00 PM</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.6); padding: 12px 18px; border-radius: 14px; border: 1px solid var(--border);">
+                            <span style="background: var(--taupe); color: var(--white); padding: 3px 12px; border-radius: 999px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;">Senior</span>
+                            <span style="font-weight: 700; color: var(--coffee-dark);">2:30 PM – 3:00 PM</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Action Buttons -->
+                    <div class="contact-actions" style="flex-direction: column; min-width: 150px;">
+                        <a class="btn btn-primary" href="products.html" style="width: 100%;">Order now <span>→</span></a>
+                        <a class="btn btn-secondary" href="checkout.html" style="width: 100%;">Go to cart</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- =================================================== -->
+
+        <section class="section cta-section">
+            <div class="container">
+                <div class="cta-card reveal">
+                    <div><span class="eyebrow eyebrow-light">Fresh batch available</span><h2>Bring home something baked with hope.</h2><p>Support student creativity while enjoying a freshly prepared treat.</p></div>
+                    <a class="btn btn-light" href="products.html">Start your order <span>→</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"><span class="toast-icon">✓</span><span id="toastMessage">Added to cart</span></div>
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="logo logo-footer" href="#home"><span class="logo-mark"><img src="images/logo.jpg" alt="Bread of Hope logo"></span><span class="brand-copy"><strong>Bread of Hope</strong><small>Bake Shop</small></span></a>
+                <p>Fresh pastries, sweet comfort, and warm moments in every batch.</p>
+            </div>
+            <div class="footer-links"><h3>Explore</h3><a href="#home">Home</a><a href="#products">Products</a><a href="#ourStory">Our Story</a></div>
+            <div class="footer-links"><h3>Order</h3><a href="cart.html">View Cart</a><a href="checkout.html">Checkout</a><a href="admin.html">Admin</a></div>
+            <div class="footer-note"><span>Fresh bakery</span><p>Made with care and served with heart.</p></div>
+        </div>
+        <div class="container footer-bottom"><p>© <span data-current-year>2026</span> Bread of Hope. Freshly baked favorites.</p><p>Made with skill, care, and hope.</p></div>
+    </footer>
+</body>
+</html>

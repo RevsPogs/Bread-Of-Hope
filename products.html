@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse freshly baked products from Bread of Hope and order your favorite treats online.">
+    <meta name="theme-color" content="#8C7B6B">
+    <title>Products | Bread of Hope</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+    <script src="js/products.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <a class="skip-link" href="#mainContent">Skip to content</a>
+    <header class="site-header" id="siteHeader">
+        <nav class="navbar container" aria-label="Main navigation">
+            <a class="logo" href="index.html" aria-label="Bread of Hope home"><span class="logo-mark"><img src="images/logo.jpg" alt="Bread of Hope logo"></span><span class="brand-copy"><strong>Bread of Hope</strong><small>Bake Shop</small></span></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primaryNavigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+            <div class="nav-panel" id="primaryNavigation">
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#products" class="active" aria-current="page">Products</a></li>
+                    <li><a href="index.html#ourStory">Our Story</a></li>
+                    <li><a href="index.html#howItWorks">How It Works</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a class="admin-nav-entry" href="admin.html">Admin</a></li>
+                </ul>
+                <a class="nav-cta" href="cart.html">View Cart <span class="cart-count" data-cart-count>0</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="mainContent">
+        <section class="page-hero products-hero">
+            <div class="container page-hero-inner reveal"><span class="eyebrow">Fresh from the oven</span><h1>Find your next favorite treat</h1><p>Search the available menu and add your chosen products to the cart.</p></div>
+        </section>
+        <section class="section products-catalog">
+            <div class="container">
+                <div class="catalog-toolbar reveal">
+                    <div class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><label class="sr-only" for="searchInput">Search products</label><input type="search" id="searchInput" placeholder="Search products..." autocomplete="off"></div>
+                    <p id="productCount" aria-live="polite">0 products</p>
+                </div>
+                <div id="productContainer" class="product-grid catalog-grid" aria-live="polite"></div>
+                <div id="noProducts" class="empty-state" hidden><div class="empty-icon">⌕</div><h2>No products found</h2><p>Try another search term to see available products.</p><button class="btn btn-secondary" type="button" id="clearSearch">Clear search</button></div>
+            </div>
+        </section>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"><span class="toast-icon">✓</span><span id="toastMessage">Added to cart</span></div>
+    <footer class="site-footer compact-footer"><div class="container footer-bottom"><p>© <span data-current-year>2026</span> Bread of Hope. Freshly baked favorites.</p><a href="cart.html">View your cart →</a></div></footer>
+</body>
+</html>
