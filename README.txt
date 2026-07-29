@@ -7,8 +7,8 @@ QUICK START
 4. The website now works even when opened directly without a local web server.
 
 ADMIN LOGIN
-Username: admin
-Password: admin
+Username: contact the dev
+Password: contact the dev
 
 HOW ORDER DATA WORKS
 - Products, cart items, submitted orders, and admin changes are saved in the browser through localStorage.
